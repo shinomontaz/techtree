@@ -1,16 +1,4 @@
-const cfg = require('./config.json');
-
-const Pool = require('pg').Pool
-
-const pool = new Pool({
-  user: cfg.dbUser,
-  host: cfg.dbHost,
-  database:  cfg.dbName,
-  password: cfg.dbPass,
-  port: cfg.dbPort,
-})
-
-console.log(cfg);
+const { pool } = require('./pool')
 
 const getProjects = (request, response) => {
 

@@ -1,4 +1,4 @@
-const cfg = require('./config.json');
+require('dotenv').load();
 const {migrate} = require("postgres-migrations")
 
 migrate({
