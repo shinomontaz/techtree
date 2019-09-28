@@ -23,11 +23,11 @@ const createStep = (request, response) => {
 
 const updateStep = (request, response) => {
   const id = parseInt(request.params.id)
-  const { fk_parent, name, planned_at, finished_at, state } = request.body
+  const { fk_parent, name, planned_at, finished_at, is_finished } = request.body
 
   pool.query(
-    'UPDATE steps SET fk_project = COALESCE($2,fk_project), name = COALESCE($3,name), planned_at = COALESCE($4,planned_at), finished_at = COALESCE($5,finished_at), state = COALESCE($6,state) WHERE id = $1',
-    [id, fk_parent, name, planned_at, finished_at, state],
+    'UPDATE steps SET fk_project = COALESCE($2,fk_project), name = COALESCE($3,name), planned_at = COALESCE($4,planned_at), finished_at = COALESCE($5,finished_at), is_finished = COALESCE($6,is_finished) WHERE id = $1',
+    [id, fk_parent, name, planned_at, finished_at, is_finished],
     (error, results) => {
       if (error) {
         throw error

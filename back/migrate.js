@@ -1,14 +1,17 @@
-require('dotenv').load();
-const {migrate} = require("postgres-migrations")
+require('dotenv').config()
 
-migrate({
-    database: cfg.dbName,
-    user: cfg.dbUser,
-    password: cfg.dbPass,
-    host: cfg.dbHost,
-    port: cfg.dbPort
-  }, "./migrations")
+const {migrate} = require("postgres-migrations")
+const params = {
+    database: process.env.dbName,
+    user: process.env.dbUser,
+    password: process.env.dbPass,
+    host: process.env.dbHost,
+    port: parseInt(process.env.dbPort),
+  };
+
+migrate(params, "./migrations")
 .then(() => {/* ... */})
 .catch((err) => {
+  console.log(params)
   console.log(err)
 })
