@@ -24,7 +24,7 @@ const getProjectById = (request, response) => {
 const createProject = (request, response) => {
   const { name } = request.body
 
-  pool.query('INSERT INTO projects (name) VALUES ($1)', [name], (error, results) => {
+  pool.query('INSERT INTO projects (name) VALUES ($1)', [name], (error, result) => {
     if (error) {
       throw error
     }
@@ -35,9 +35,8 @@ const createProject = (request, response) => {
 const updateProject = (request, response) => {
   const id = parseInt(request.params.id)
   const { name } = request.body
-
   pool.query(
-    'UPDATE projects SET name = $1 WHERE id = $3',
+    'UPDATE projects SET name = $1 WHERE id = $2',
     [name, id],
     (error, results) => {
       if (error) {
@@ -51,7 +50,7 @@ const updateProject = (request, response) => {
 const deleteProject = (request, response) => {
   const id = parseInt(request.params.id)
 
-  pool.query('DELETE FROM projects WHERE id = $1 CASCADE', [id], (error, results) => {
+  pool.query('DELETE FROM projects WHERE id = $1', [id], (error, results) => {
     if (error) {
       throw error
     }

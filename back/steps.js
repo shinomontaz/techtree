@@ -2,7 +2,7 @@ const { pool } = require('./pool')
 
 const getSteps = (request, response) => {
   const { fk_project } = request.body
-  pool.query('SELECT * FROM steps ORDER BY id ASC WHERE fk_project = $1', [fk_project],  (error, results) => {
+  pool.query('SELECT * FROM steps WHERE fk_project = $1 ORDER BY id ASC ', [fk_project],  (error, results) => {
     if (error) {
       throw error
     }
@@ -13,7 +13,7 @@ const getSteps = (request, response) => {
 const createStep = (request, response) => {
   const { fk_project, fk_parent, name, planned_at } = request.body
 
-  pool.query('INSERT INTO steps (fk_project, fk_parent, name, planned_at) VALUES ($1, $2, $3, COALESCE($4,NOW()))', [fk_project, fk_parent, name, planned_at], (error, results) => {
+  pool.query('INSERT INTO steps (fk_project, fk_parent, name, planned_at) VALUES ($1, $2, $3, COALESCE($4,NOW()))', [fk_project, fk_parent, name, planned_at], (error, result) => {
     if (error) {
       throw error
     }
